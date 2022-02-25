@@ -23,6 +23,16 @@ const createOnInput = (props: Props) => (event: InputEvent) =>
 		};
 	});
 
+const createOnDelete = (props: Props) => () => {
+	setTodoState((state) => {
+		const start = state.todos.slice(0, props.index);
+		const end = state.todos.slice(props.index + 1);
+		return {
+			todos: start.concat(end)
+		};
+	});
+};
+
 export const TodoCard = (props: Props) => {
 	const navigate = useNavigate();
 	const titleClass = () => ({
@@ -36,6 +46,7 @@ export const TodoCard = (props: Props) => {
 	const timestamp = () => formatTimestampForDisplay(props.todo.timestamp);
 	const onInput = createOnInput(props);
 	const edit = () => navigate(`/${props.index}`);
+	const onDelete = createOnDelete(props);
 
 	return (
 		<div class="TodoCard">
@@ -52,8 +63,12 @@ export const TodoCard = (props: Props) => {
 				<p classList={timestampClass()}>{timestamp()}</p>
 			</div>
 			<div class="Actions">
-				<button type="button" onClick={edit}>Edit</button>
-				<button type="button">Delete</button>
+				<button type="button" onClick={edit}>
+					Edit
+				</button>
+				<button type="button" onClick={onDelete}>
+					Delete
+				</button>
 			</div>
 		</div>
 	);
