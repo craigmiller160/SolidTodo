@@ -43,7 +43,9 @@ export const TodoDetails = () => {
 				</div>
 			</div>
 			<div class="Actions">
-				<button type="button" onClick={cancel}>Cancel</button>
+				<button type="button" onClick={cancel}>
+					Cancel
+				</button>
 				<button type="button">Save</button>
 			</div>
 		</div>
