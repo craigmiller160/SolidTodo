@@ -2,6 +2,7 @@ import './TodoCard.scss';
 import { Todo } from '../../../types/Todo';
 import { formatTimestampForDisplay } from '../../../utils/timeUtils';
 import { setTodoState } from '../../../store/todoStore';
+import { useNavigate } from 'solid-app-router';
 
 interface Props {
 	readonly todo: Todo;
@@ -23,6 +24,7 @@ const createOnInput = (props: Props) => (event: InputEvent) =>
 	});
 
 export const TodoCard = (props: Props) => {
+	const navigate = useNavigate();
 	const titleClass = () => ({
 		Title: true,
 		Complete: props.todo.isComplete
@@ -33,6 +35,7 @@ export const TodoCard = (props: Props) => {
 	});
 	const timestamp = () => formatTimestampForDisplay(props.todo.timestamp);
 	const onInput = createOnInput(props);
+	const edit = () => navigate(`/${props.index}`);
 
 	return (
 		<div class="TodoCard">
@@ -49,7 +52,7 @@ export const TodoCard = (props: Props) => {
 				<p classList={timestampClass()}>{timestamp()}</p>
 			</div>
 			<div>
-				<button>Edit</button>
+				<button onClick={edit}>Edit</button>
 			</div>
 		</div>
 	);
