@@ -51,8 +51,9 @@ export const TodoCard = (props: Props) => {
 				<h2 classList={titleClass()}>{props.todo.title}</h2>
 				<p classList={timestampClass()}>{timestamp()}</p>
 			</div>
-			<div>
-				<button onClick={edit}>Edit</button>
+			<div class="Actions">
+				<button type="button" onClick={edit}>Edit</button>
+				<button type="button">Delete</button>
 			</div>
 		</div>
 	);
