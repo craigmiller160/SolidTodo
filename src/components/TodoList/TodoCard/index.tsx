@@ -48,6 +48,9 @@ export const TodoCard = (props: Props) => {
 				<h2 classList={titleClass()}>{props.todo.title}</h2>
 				<p classList={timestampClass()}>{timestamp()}</p>
 			</div>
+			<div>
+				<button>Edit</button>
+			</div>
 		</div>
 	);
 };
