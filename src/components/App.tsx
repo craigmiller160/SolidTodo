@@ -6,7 +6,7 @@ export const App = () => {
 	return (
 		<Router>
 			<div>
-				<h1>Hello World</h1>
+				<h1>My TODO List</h1>
 				<Routes />
 			</div>
 		</Router>
