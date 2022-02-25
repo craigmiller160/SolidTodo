@@ -1,13 +1,12 @@
 import { render } from 'solid-js/web';
-
-const Hello = () => <h1>Hello World</h1>;
+import { App } from './components/App';
 
 const rootDiv = document.getElementById('root');
 if (!rootDiv) {
 	throw new Error('Unable to find root div');
 }
 
-const dispose = render(() => <Hello />, rootDiv);
+const dispose = render(() => <App />, rootDiv);
 if (import.meta.hot) {
 	import.meta.hot.dispose(dispose);
 }
