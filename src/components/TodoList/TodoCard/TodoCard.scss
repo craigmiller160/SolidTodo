@@ -13,12 +13,12 @@
     background-color: aquamarine;
   }
 
-  .TodoCheckbox {
-
-  }
-
   .TodoTitle {
     width: 80%;
     margin-left: 1rem;
+
+    .Complete {
+      text-decoration: line-through;
+    }
   }
 }

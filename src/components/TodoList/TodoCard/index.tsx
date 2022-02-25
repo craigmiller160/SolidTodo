@@ -5,13 +5,22 @@ interface Props {
 	readonly todo: Todo;
 }
 
-export const TodoCard = (props: Props) => (
-	<div class="TodoCard">
-		<div class="TodoCheckbox">
-			<input type="checkbox" name="complete" />
+export const TodoCard = (props: Props) => {
+	const titleClass = {
+		Complete: props.todo.isComplete
+	};
+	return (
+		<div class="TodoCard">
+			<div class="TodoCheckbox">
+				<input
+					type="checkbox"
+					name="complete"
+					checked={props.todo.isComplete}
+				/>
+			</div>
+			<div class="TodoTitle">
+				<h2 classList={titleClass}>{props.todo.title}</h2>
+			</div>
 		</div>
-		<div class="TodoTitle">
-			<h2>{props.todo.title}</h2>
-		</div>
-	</div>
-);
+	);
+};

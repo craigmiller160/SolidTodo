@@ -25,6 +25,9 @@ const tempList: ReadonlyArray<Todo> = [
 
 export const TodoList = () => (
 	<div>
-		<For each={tempList}>{(todo) => <TodoCard todo={todo} />}</For>
+		<div>
+			<For each={tempList}>{(todo) => <TodoCard todo={todo} />}</For>
+		</div>
+		<button>Add TODO</button>
 	</div>
 );
