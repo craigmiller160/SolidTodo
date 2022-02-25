@@ -8,26 +8,27 @@ interface Props {
 	readonly index: number;
 }
 
+const createOnInput = (props: Props) => (event: InputEvent) =>
+	setTodoState((state) => {
+		const todos = [...state.todos];
+		todos[props.index] = {
+			...todos[props.index],
+			isComplete:
+				(event.currentTarget as HTMLInputElement | undefined)
+					?.checked ?? false
+		};
+		return {
+			todos
+		};
+	});
+
 export const TodoCard = (props: Props) => {
 	const titleClass = () => ({
 		Title: true,
 		Complete: props.todo.isComplete
 	});
 	const timestamp = () => formatTimestampForDisplay(props.todo.timestamp);
-	const onInput = (event: InputEvent) => {
-		setTodoState((state) => {
-			const todos = [...state.todos];
-			todos[props.index] = {
-				...todos[props.index],
-				isComplete:
-					(event.currentTarget as HTMLInputElement | undefined)
-						?.checked ?? false
-			};
-			return {
-				todos
-			};
-		});
-	};
+	const onInput = createOnInput(props);
 
 	return (
 		<div class="TodoCard">
