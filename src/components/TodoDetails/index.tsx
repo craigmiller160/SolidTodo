@@ -1,11 +1,15 @@
 import { createSignal } from 'solid-js';
 import './TodoDetails.scss';
 import { getCurrentTimestamp } from '../../utils/timeUtils';
+import { useNavigate } from 'solid-app-router';
 
 export const TodoDetails = () => {
+	const navigate = useNavigate();
 	const [title, setTitle] = createSignal('');
 	const [description, setDescription] = createSignal('');
 	const [timestamp, setTimestamp] = createSignal(getCurrentTimestamp());
+
+	const cancel = () => navigate('../');
 	return (
 		<div class="TodoDetails">
 			<h2>TODO Details</h2>
@@ -39,8 +43,8 @@ export const TodoDetails = () => {
 				</div>
 			</div>
 			<div class="Actions">
-				<button>Cancel</button>
-				<button>Save</button>
+				<button type="button" onClick={cancel}>Cancel</button>
+				<button type="button">Save</button>
 			</div>
 		</div>
 	);
