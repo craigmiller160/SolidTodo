@@ -1,7 +1,7 @@
 import { TodoCard } from './TodoCard';
 import { For } from 'solid-js';
 import { useNavigate } from 'solid-app-router';
-import { todoStore } from '../../store/todoStore';
+import { todoState } from '../../store/todoStore';
 
 export const TodoList = () => {
 	const navigate = useNavigate();
@@ -9,8 +9,8 @@ export const TodoList = () => {
 	return (
 		<div>
 			<div>
-				<For each={todoStore.todos}>
-					{(todo) => <TodoCard todo={todo} />}
+				<For each={todoState.todos}>
+					{(todo, index) => <TodoCard todo={todo} index={index()} />}
 				</For>
 			</div>
 			<button type="button" onClick={addTodo}>

@@ -1,11 +1,11 @@
 import { createStore } from 'solid-js/store';
 import { Todo } from '../types/Todo';
 
-export interface TodoStore {
+export interface TodoState {
 	readonly todos: ReadonlyArray<Todo>;
 }
 
-export const [todoStore, setTodoStore] = createStore<TodoStore>({
+export const [todoState, setTodoState] = createStore<TodoState>({
 	todos: [
 		{
 			timestamp: '2022-01-01T00:00:00',
