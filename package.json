@@ -1,8 +1,11 @@
 {
   "name": "SolidTodo",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "lint": "eslint --fix --max-warnings=0 src"
+  },
   "devDependencies": {
     "@types/node": "^17.0.21",
     "@typescript-eslint/eslint-plugin": "^5.12.1",
