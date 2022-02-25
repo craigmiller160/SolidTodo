@@ -6,6 +6,9 @@ const DISPLAY_FORMAT = 'MMM dd, yyyy hh:mm a';
 
 const parseTimestamp = Time.parse(TIMESTAMP_FORMAT);
 const formatDisplay = Time.format(DISPLAY_FORMAT);
+const formatTimestamp = Time.format(TIMESTAMP_FORMAT);
 
 export const formatTimestampForDisplay = (timestamp: string): string =>
 	pipe(parseTimestamp(timestamp), formatDisplay);
+
+export const getCurrentTimestamp = (): string => formatTimestamp(new Date());
