@@ -1,9 +1,9 @@
 import { RouteDefinition } from 'solid-app-router';
-import { Home } from '../components/Home';
+import { Index } from '../components/TodoList';
 
 export const routes: RouteDefinition[] = [
 	{
 		path: '/',
-		component: Home
+		component: Index
 	}
 ];
