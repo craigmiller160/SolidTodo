@@ -1,4 +1,1 @@
-
-export const Index = () => (
-    <h1>TODO List</h1>
-);
+export const TodoList = () => <h1>TODO List</h1>;
