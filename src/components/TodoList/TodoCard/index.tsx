@@ -27,6 +27,10 @@ export const TodoCard = (props: Props) => {
 		Title: true,
 		Complete: props.todo.isComplete
 	});
+	const timestampClass = () => ({
+		Timestamp: true,
+		Complete: props.todo.isComplete
+	});
 	const timestamp = () => formatTimestampForDisplay(props.todo.timestamp);
 	const onInput = createOnInput(props);
 
@@ -42,7 +46,7 @@ export const TodoCard = (props: Props) => {
 			</div>
 			<div class="TodoCardContent">
 				<h2 classList={titleClass()}>{props.todo.title}</h2>
-				<p>{timestamp()}</p>
+				<p classList={timestampClass()}>{timestamp()}</p>
 			</div>
 		</div>
 	);

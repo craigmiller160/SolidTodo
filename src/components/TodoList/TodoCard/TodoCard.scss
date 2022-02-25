@@ -22,5 +22,11 @@
         text-decoration: line-through;
       }
     }
+
+    .Timestamp {
+      &.Complete {
+        text-decoration: line-through;
+      }
+    }
   }
 }
