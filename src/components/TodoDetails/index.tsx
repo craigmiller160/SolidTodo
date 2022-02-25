@@ -21,13 +21,19 @@ export const TodoDetails = () => {
 				</div>
 				<div class="form-group">
 					<label for="timestamp">Timestamp</label>
-					<input id="timestamp" type="datetime-local" name="timestamp" value={timestamp()} />
+					<input
+						id="timestamp"
+						type="datetime-local"
+						name="timestamp"
+						value={timestamp()}
+					/>
 				</div>
 				<div class="form-group">
 					<label for="description">Description</label>
 					<textarea
 						id="description"
 						name="description"
+						rows="10"
 						value={description()}
 					/>
 				</div>
