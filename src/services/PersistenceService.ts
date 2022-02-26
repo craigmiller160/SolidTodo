@@ -3,7 +3,7 @@ import * as Json from '@craigmiller160/ts-functions/Json';
 import * as Sleep from '@craigmiller160/ts-functions/Sleep';
 import { pipe } from 'fp-ts/function';
 import * as TaskEither from 'fp-ts/TaskEither';
-import { TaskTryT } from '@craigmiller160/ts-functions/types';
+import { TaskT } from '@craigmiller160/ts-functions/types';
 import * as Option from 'fp-ts/Option';
 
 const TODOS_KEY = 'SolidJS_Todos';
@@ -24,21 +24,35 @@ const getFromLocalStorage = (): string =>
 
 export const persistTodos = (
 	todos: ReadonlyArray<Todo>
-): TaskTryT<ReadonlyArray<Todo>> =>
+): TaskT<ReadonlyArray<Todo>> =>
 	pipe(
 		sleep2Sec,
 		TaskEither.rightTask,
 		TaskEither.chainEitherK(() => Json.stringifyE(todos)),
 		TaskEither.map(setInLocalStorage),
-		TaskEither.map(() => todos)
+		TaskEither.map(() => todos),
+		TaskEither.fold(
+			(ex) => async () => {
+				alert(`Error: ${ex.message}`);
+				return [];
+			},
+			(todos) => async () => todos
+		)
 	);
 
-export const loadTodos = (): TaskTryT<ReadonlyArray<Todo>> =>
+export const loadTodos = (): TaskT<ReadonlyArray<Todo>> =>
 	pipe(
 		sleep2Sec,
 		TaskEither.rightTask,
 		TaskEither.map(getFromLocalStorage),
 		TaskEither.chainEitherK((json) =>
 			Json.parseE<ReadonlyArray<Todo>>(json)
+		),
+		TaskEither.fold(
+			(ex) => async () => {
+				alert(`Error: ${ex.message}`);
+				return [];
+			},
+			(todos) => async () => todos
 		)
 	);
