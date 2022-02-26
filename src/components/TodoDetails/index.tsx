@@ -41,9 +41,17 @@ const createSaveTodo =
 
 const createUpdateStringSignal = (setter: Setter<string>) => (event: Event) => {
 	const value = (event.currentTarget as HTMLInputElement | null)?.value ?? '';
-	console.log('Value', value === undefined, value === null);
 	setter(value);
 };
+
+const createUpdateNonEmptyStringSignal =
+	(setter: Setter<string>) => (event: Event) => {
+		const value =
+			(event.currentTarget as HTMLInputElement | null)?.value ?? '';
+		if (value) {
+			setter(value);
+		}
+	};
 
 export const TodoDetails = () => {
 	const navigate = useNavigate();
@@ -54,6 +62,7 @@ export const TodoDetails = () => {
 	const saveTodo = createSaveTodo(params, title, description, timestamp);
 	const updateTitle = createUpdateStringSignal(setTitle);
 	const updateDescription = createUpdateStringSignal(setDescription);
+	const updateTimestamp = createUpdateNonEmptyStringSignal(setTimestamp);
 
 	createEffect(() =>
 		setTodoValues(params, setTitle, setDescription, setTimestamp)
@@ -81,6 +90,7 @@ export const TodoDetails = () => {
 						type="datetime-local"
 						name="timestamp"
 						value={timestamp()}
+						onInput={updateTimestamp}
 					/>
 				</div>
 				<div class="form-group">
