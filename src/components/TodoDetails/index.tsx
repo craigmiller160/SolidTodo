@@ -1,7 +1,7 @@
 import { Accessor, createEffect, createSignal, Setter } from 'solid-js';
 import './TodoDetails.scss';
 import { getCurrentTimestamp } from '../../utils/timeUtils';
-import { Params, useNavigate, useParams } from 'solid-app-router';
+import { Params, useNavigate, useParams, Navigator } from 'solid-app-router';
 import { todoState, setTodoState } from '../../store/todoStore';
 import { match } from 'ts-pattern';
 
@@ -31,11 +31,13 @@ const setTodoValues = (
 const createSaveTodo =
 	(
 		params: Params,
+		navigate: Navigator,
 		title: Accessor<string>,
 		description: Accessor<string>,
 		timestamp: Accessor<string>
 	) =>
-	() =>
+	() => {
+		console.log('Timestamp', timestamp());
 		setTodoState((state) => {
 			const todos = [...state.todos];
 			match(params.id)
@@ -59,6 +61,8 @@ const createSaveTodo =
 				todos
 			};
 		});
+		navigate('../');
+	};
 
 const createUpdateStringSignal = (setter: Setter<string>) => (event: Event) => {
 	const value = (event.currentTarget as HTMLInputElement | null)?.value ?? '';
@@ -80,7 +84,7 @@ export const TodoDetails = () => {
 	const [title, setTitle] = createSignal('');
 	const [description, setDescription] = createSignal('');
 	const [timestamp, setTimestamp] = createSignal(getCurrentTimestamp());
-	const saveTodo = createSaveTodo(params, title, description, timestamp);
+	const saveTodo = createSaveTodo(params, navigate, title, description, timestamp);
 	const updateTitle = createUpdateStringSignal(setTitle);
 	const updateDescription = createUpdateStringSignal(setDescription);
 	const updateTimestamp = createUpdateNonEmptyStringSignal(setTimestamp);

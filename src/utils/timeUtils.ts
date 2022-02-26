@@ -1,7 +1,7 @@
 import * as Time from '@craigmiller160/ts-functions/Time';
 import { pipe } from 'fp-ts/function';
 
-const TIMESTAMP_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
+const TIMESTAMP_FORMAT = "yyyy-MM-dd'T'HH:mm";
 const DISPLAY_FORMAT = 'MMM dd, yyyy hh:mm a';
 
 const parseTimestamp = Time.parse(TIMESTAMP_FORMAT);
