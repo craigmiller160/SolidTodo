@@ -37,7 +37,6 @@ const createSaveTodo =
 		timestamp: Accessor<string>
 	) =>
 	() => {
-		console.log('Timestamp', timestamp());
 		setTodoState((state) => {
 			const todos = [...state.todos];
 			match(params.id)

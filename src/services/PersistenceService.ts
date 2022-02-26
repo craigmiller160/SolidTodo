@@ -5,6 +5,7 @@ import { pipe } from 'fp-ts/function';
 import * as TaskEither from 'fp-ts/TaskEither';
 import { TaskT } from '@craigmiller160/ts-functions/types';
 import * as Option from 'fp-ts/Option';
+import { createResource } from 'solid-js';
 
 const TODOS_KEY = 'SolidJS_Todos';
 
@@ -40,8 +41,9 @@ export const persistTodos = (
 		)
 	);
 
-export const loadTodos = (): TaskT<ReadonlyArray<Todo>> =>
-	pipe(
+export const loadTodos = (): TaskT<ReadonlyArray<Todo>> => {
+	console.log('LoadTodos');
+	return pipe(
 		sleep2Sec,
 		TaskEither.rightTask,
 		TaskEither.map(getFromLocalStorage),
@@ -56,3 +58,8 @@ export const loadTodos = (): TaskT<ReadonlyArray<Todo>> =>
 			(todos) => async () => todos
 		)
 	);
+}
+
+export const [loadedTodos] = createResource(loadTodos(), {
+	initialValue: []
+});
