@@ -58,7 +58,7 @@ export const loadTodos = (): TaskT<ReadonlyArray<Todo>> => {
 			(todos) => async () => todos
 		)
 	);
-}
+};
 
 export const [loadedTodos] = createResource(loadTodos(), {
 	initialValue: []

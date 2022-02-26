@@ -83,7 +83,13 @@ export const TodoDetails = () => {
 	const [title, setTitle] = createSignal('');
 	const [description, setDescription] = createSignal('');
 	const [timestamp, setTimestamp] = createSignal(getCurrentTimestamp());
-	const saveTodo = createSaveTodo(params, navigate, title, description, timestamp);
+	const saveTodo = createSaveTodo(
+		params,
+		navigate,
+		title,
+		description,
+		timestamp
+	);
 	const updateTitle = createUpdateStringSignal(setTitle);
 	const updateDescription = createUpdateStringSignal(setDescription);
 	const updateTimestamp = createUpdateNonEmptyStringSignal(setTimestamp);
