@@ -13,7 +13,6 @@ const TODOS_KEY = 'SolidJS_Todos';
 const sleep2Sec = Sleep.sleep(2000);
 
 const setInLocalStorage = (json: string): string => {
-	console.log('Setting in LocalStorage', json);
 	localStorage.setItem(TODOS_KEY, json);
 	return json;
 };
