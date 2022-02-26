@@ -1,4 +1,4 @@
-import { createEffect, createSignal, Setter } from 'solid-js';
+import { Accessor, createEffect, createSignal, Setter } from 'solid-js';
 import './TodoDetails.scss';
 import { getCurrentTimestamp } from '../../utils/timeUtils';
 import { Params, useNavigate, useParams } from 'solid-app-router';
@@ -28,12 +28,32 @@ const setTodoValues = (
 			setTimestamp(todo.timestamp);
 		});
 
+const createSaveTodo =
+	(
+		params: Params,
+		title: Accessor<string>,
+		description: Accessor<string>,
+		timestamp: Accessor<string>
+	) =>
+	() => {
+		console.log(timestamp());
+	};
+
+const createUpdateStringSignal = (setter: Setter<string>) => (event: Event) => {
+	const value = (event.currentTarget as HTMLInputElement | null)?.value ?? '';
+	console.log('Value', value === undefined, value === null);
+	setter(value);
+};
+
 export const TodoDetails = () => {
 	const navigate = useNavigate();
 	const params = useParams<RouteParams>();
 	const [title, setTitle] = createSignal('');
 	const [description, setDescription] = createSignal('');
 	const [timestamp, setTimestamp] = createSignal(getCurrentTimestamp());
+	const saveTodo = createSaveTodo(params, title, description, timestamp);
+	const updateTitle = createUpdateStringSignal(setTitle);
+	const updateDescription = createUpdateStringSignal(setDescription);
 
 	createEffect(() =>
 		setTodoValues(params, setTitle, setDescription, setTimestamp)
@@ -51,6 +71,7 @@ export const TodoDetails = () => {
 						type="text"
 						name="title"
 						value={title()}
+						onInput={updateTitle}
 					/>
 				</div>
 				<div class="form-group">
@@ -69,6 +90,7 @@ export const TodoDetails = () => {
 						name="description"
 						rows="10"
 						value={description()}
+						onInput={updateDescription}
 					/>
 				</div>
 			</div>
@@ -76,7 +98,9 @@ export const TodoDetails = () => {
 				<button type="button" onClick={cancel}>
 					Cancel
 				</button>
-				<button type="button">Save</button>
+				<button type="button" onClick={saveTodo}>
+					Save
+				</button>
 			</div>
 		</div>
 	);
