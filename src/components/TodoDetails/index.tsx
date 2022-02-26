@@ -2,7 +2,7 @@ import { Accessor, createEffect, createSignal, Setter } from 'solid-js';
 import './TodoDetails.scss';
 import { getCurrentTimestamp } from '../../utils/timeUtils';
 import { Params, useNavigate, useParams } from 'solid-app-router';
-import { todoState } from '../../store/todoStore';
+import { todoState, setTodoState } from '../../store/todoStore';
 import { match } from 'ts-pattern';
 
 interface RouteParams extends Record<string, string> {
@@ -35,9 +35,30 @@ const createSaveTodo =
 		description: Accessor<string>,
 		timestamp: Accessor<string>
 	) =>
-	() => {
-		console.log(timestamp());
-	};
+	() =>
+		setTodoState((state) => {
+			const todos = [...state.todos];
+			match(params.id)
+				.with('add', () =>
+					todos.push({
+						title: title(),
+						description: description(),
+						timestamp: timestamp(),
+						isComplete: false
+					})
+				)
+				.otherwise(() => {
+					todos[parseInt(params.id)] = {
+						title: title(),
+						description: description(),
+						timestamp: timestamp(),
+						isComplete: todos[parseInt(params.id)].isComplete
+					};
+				});
+			return {
+				todos
+			};
+		});
 
 const createUpdateStringSignal = (setter: Setter<string>) => (event: Event) => {
 	const value = (event.currentTarget as HTMLInputElement | null)?.value ?? '';
