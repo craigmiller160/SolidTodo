@@ -1,13 +1,44 @@
-import { createSignal } from 'solid-js';
+import { createEffect, createSignal, Setter } from 'solid-js';
 import './TodoDetails.scss';
 import { getCurrentTimestamp } from '../../utils/timeUtils';
-import { useNavigate } from 'solid-app-router';
+import { Params, useNavigate, useParams } from 'solid-app-router';
+import { todoState } from '../../store/todoStore';
+import { match } from 'ts-pattern';
+
+interface RouteParams extends Record<string, string> {
+	readonly id: string;
+}
+
+const setTodoValues = (
+	params: Params,
+	setTitle: Setter<string>,
+	setDescription: Setter<string>,
+	setTimestamp: Setter<string>
+) => {
+	match(params.id)
+		.with('add', () => {
+			setTitle('');
+			setDescription('');
+			setTimestamp(getCurrentTimestamp());
+		})
+		.otherwise(() => {
+			const todo = todoState.todos[parseInt(params.id)];
+			setTitle(todo.title);
+			setDescription(todo.description);
+			setTimestamp(todo.timestamp);
+		});
+};
 
 export const TodoDetails = () => {
 	const navigate = useNavigate();
+	const params = useParams<RouteParams>();
 	const [title, setTitle] = createSignal('');
 	const [description, setDescription] = createSignal('');
 	const [timestamp, setTimestamp] = createSignal(getCurrentTimestamp());
+
+	createEffect(() =>
+		setTodoValues(params, setTitle, setDescription, setTimestamp)
+	);
 
 	const cancel = () => navigate('../');
 	return (

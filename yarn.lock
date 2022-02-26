@@ -1842,6 +1842,11 @@ to-regex-range@^5.0.1:
   dependencies:
     is-number "^7.0.0"
 
+ts-pattern@^3.3.5:
+  version "3.3.5"
+  resolved "https://craigmiller160.ddns.net:30003/repository/npm-group/ts-pattern/-/ts-pattern-3.3.5.tgz#9a4bde1d44f9afe7e82409820f68790232c2544c"
+  integrity sha512-LD+wFR/RNckk1DrKV0LTH4KIT9wRqnnOjtEf77ovhKcVi8gf83Uf6U7OdywEua6KD9SbHadUdfolayfIUiPxzw==
+
 ts-toolbelt@^9.6.0:
   version "9.6.0"
   resolved "https://craigmiller160.ddns.net:30003/repository/npm-group/ts-toolbelt/-/ts-toolbelt-9.6.0.tgz#50a25426cfed500d4a09bd1b3afb6f28879edfd5"
