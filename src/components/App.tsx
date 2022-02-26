@@ -14,8 +14,9 @@ export const App = () => {
 		}));
 	});
 	createEffect(() => {
-		console.log('Effect Running');
-		persistTodos(todoState.todos);
+		if (!loadedTodos.loading) {
+			persistTodos(todoState.todos);
+		}
 	});
 
 	return (
