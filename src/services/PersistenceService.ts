@@ -41,9 +41,8 @@ export const persistTodos = (
 		)
 	);
 
-export const loadTodos = (): TaskT<ReadonlyArray<Todo>> => {
-	console.log('LoadTodos');
-	return pipe(
+export const loadTodos = (): TaskT<ReadonlyArray<Todo>> =>
+	pipe(
 		sleep2Sec,
 		TaskEither.rightTask,
 		TaskEither.map(getFromLocalStorage),
@@ -58,7 +57,6 @@ export const loadTodos = (): TaskT<ReadonlyArray<Todo>> => {
 			(todos) => async () => todos
 		)
 	);
-};
 
 export const [loadedTodos] = createResource(loadTodos(), {
 	initialValue: []

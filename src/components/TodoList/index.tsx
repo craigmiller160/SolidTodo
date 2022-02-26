@@ -1,5 +1,5 @@
 import { TodoCard } from './TodoCard';
-import { createEffect, For } from 'solid-js';
+import { For } from 'solid-js';
 import { useNavigate } from 'solid-app-router';
 import { todoState } from '../../store/todoStore';
 import { loadedTodos } from '../../services/PersistenceService';
@@ -7,10 +7,6 @@ import { loadedTodos } from '../../services/PersistenceService';
 export const TodoList = () => {
 	const navigate = useNavigate();
 	const addTodo = () => navigate('/add');
-
-	createEffect(() => {
-		console.log('TodoState', todoState);
-	});
 
 	return (
 		<div>
