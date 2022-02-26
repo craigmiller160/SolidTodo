@@ -3,7 +3,9 @@ import './TodoDetails.scss';
 import { getCurrentTimestamp } from '../../utils/timeUtils';
 import { Params, useNavigate, useParams, Navigator } from 'solid-app-router';
 import { todoState, setTodoState } from '../../store/todoStore';
+import { produce } from 'solid-js/store';
 import { match } from 'ts-pattern';
+import { Todo } from '../../types/Todo';
 
 interface RouteParams extends Record<string, string> {
 	readonly id: string;
@@ -37,29 +39,28 @@ const createSaveTodo =
 		timestamp: Accessor<string>
 	) =>
 	() => {
-		setTodoState((state) => {
-			const todos = [...state.todos];
-			match(params.id)
-				.with('add', () =>
-					todos.push({
-						title: title(),
-						description: description(),
-						timestamp: timestamp(),
-						isComplete: false
-					})
-				)
-				.otherwise(() => {
-					todos[parseInt(params.id)] = {
-						title: title(),
-						description: description(),
-						timestamp: timestamp(),
-						isComplete: todos[parseInt(params.id)].isComplete
-					};
-				});
-			return {
-				todos
-			};
-		});
+		setTodoState(
+			produce((state) => {
+				match(params.id)
+					.with('add', () =>
+						(state.todos as Todo[]).push({
+							title: title(),
+							description: description(),
+							timestamp: timestamp(),
+							isComplete: false
+						})
+					)
+					.otherwise(() => {
+						(state.todos as Todo[])[parseInt(params.id)] = {
+							title: title(),
+							description: description(),
+							timestamp: timestamp(),
+							isComplete:
+								state.todos[parseInt(params.id)].isComplete
+						};
+					});
+			})
+		);
 		navigate('../');
 	};
 
