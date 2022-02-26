@@ -14,7 +14,7 @@ const setTodoValues = (
 	setTitle: Setter<string>,
 	setDescription: Setter<string>,
 	setTimestamp: Setter<string>
-) => {
+): void =>
 	match(params.id)
 		.with('add', () => {
 			setTitle('');
@@ -27,7 +27,6 @@ const setTodoValues = (
 			setDescription(todo.description);
 			setTimestamp(todo.timestamp);
 		});
-};
 
 export const TodoDetails = () => {
 	const navigate = useNavigate();
