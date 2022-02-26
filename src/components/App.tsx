@@ -2,8 +2,8 @@ import { useRoutes, Router } from 'solid-app-router';
 import { routes } from '../routes';
 import './App.scss';
 import { createEffect } from 'solid-js';
-import { loadedTodos } from '../services/PersistenceService';
-import { setTodoState } from '../store/todoStore';
+import { loadedTodos, persistTodos } from '../services/PersistenceService';
+import { setTodoState, todoState } from '../store/todoStore';
 
 export const App = () => {
 	const Routes = useRoutes(routes);
@@ -13,6 +13,11 @@ export const App = () => {
 			todos: theTodos
 		}));
 	});
+	createEffect(() => {
+		console.log('Effect Running');
+		persistTodos(todoState.todos);
+	});
+
 	return (
 		<Router>
 			<div class="App">
